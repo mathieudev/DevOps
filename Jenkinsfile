@@ -1,41 +1,20 @@
 pipeline {
-    agent any
-    stages {
-        stage('build') {
+        agent none
+        stages {
+          stage("build & SonarQube analysis") {
+            agent any
             steps {
-                echo "build step"
+              withSonarQubeEnv('SonarQube') {
+                sh 'sonar-scanner'
+              }
             }
-        }
-        stage('test') {
-            steps {
-                echo "test step"
-            }
-        }
-        
-        stage('SonarQube analysis') {
-            
-            steps {
-                withSonarQubeEnv("SonarQube) {
-                    sh "sonar-scanner"
-                }
-            }            
-        }
-        
-        stage("Quality Gate") {
+          }
+          stage("Quality Gate") {
             steps {
               timeout(time: 1, unit: 'HOURS') {
                 waitForQualityGate abortPipeline: true
               }
             }
+          }
         }
-        
-        stage('deploy') {
-         
-            steps {
-             
-                echo "deploy step"
-            }
-        }
-
-    }
 }

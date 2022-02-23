@@ -7,10 +7,10 @@ pipeline {
               
               echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
                     
-              //def scannerHome = tool 'sonarqube-scanner'
+              def scannerHome = tool 'sonarqube-scanner'
                     
               withSonarQubeEnv('SonarQube') {
-                sh 'sonar-scanner'
+                sh "${scannerHome}/bin/sonar-scanner"
               }
             }
           }

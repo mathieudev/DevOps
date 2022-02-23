@@ -1,3 +1,5 @@
+def scannerHome = tool 'sonarqube-scanner'
+
 pipeline {
         agent none
         stages {
@@ -6,9 +8,7 @@ pipeline {
             steps {
               
               echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
-                    
-              def scannerHome = tool 'sonarqube-scanner'
-                    
+                                 
               withSonarQubeEnv('SonarQube') {
                 sh "${scannerHome}/bin/sonar-scanner"
               }

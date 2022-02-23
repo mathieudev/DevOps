@@ -19,3 +19,8 @@ stage("Quality Gate"){
     }
   }
 }
+
+stage("Build") {
+ 
+  sh 'echo "build only if Quality gate is successful"'
+}

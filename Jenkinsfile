@@ -13,10 +13,12 @@ pipeline {
         }
         
         stage('SonarQube analysis') {
-              
-            withSonarQubeEnv() {
-              sh "sonar-scanner"
-            }
+            
+            steps {
+                withSonarQubeEnv() {
+                    sh "sonar-scanner"
+                }
+            }            
         }
         
         stage("Quality Gate") {

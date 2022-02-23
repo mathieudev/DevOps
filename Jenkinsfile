@@ -8,6 +8,9 @@ node {
       sh "${scannerHome}/bin/sonar-scanner"
     }
   }
+  stage("Build") { 
+    sh 'echo "build only if Quality gate is successful"'
+  }
 }
   
 // No need to occupy a node
@@ -20,7 +23,4 @@ stage("Quality Gate"){
   }
 }
 
-stage("Build") {
- 
-  sh 'echo "build only if Quality gate is successful"'
-}
+

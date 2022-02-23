@@ -4,6 +4,11 @@ pipeline {
           stage("build & SonarQube analysis") {
             agent any
             steps {
+              
+              echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                    
+              //def scannerHome = tool 'sonarqube-scanner'
+                    
               withSonarQubeEnv('SonarQube') {
                 sh 'sonar-scanner'
               }

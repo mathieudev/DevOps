@@ -12,6 +12,18 @@ pipeline {
             }
         }
         
+        stage('SonarQube') {
+         
+            steps {
+                echo "SonarQube analysis starting ..."
+                def scannerHome = tool 'SonarScanner 4.0';
+
+                withSonarQubeEnv() {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
+            }
+        }
+        
         stage('deploy') {
          
             steps {

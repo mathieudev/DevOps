@@ -1,16 +1,18 @@
-def scannerHome = tool 'sonarqube-scanner'
-
 pipeline {
         agent none
         stages {
           stage("build & SonarQube analysis") {
             agent any
-            steps {
+            
+            environment {
+                    SCANNER_HOME = tool 'SonarScanner'                          
+                  }      
+           steps {
               
               echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
                                  
               withSonarQubeEnv('SonarQube') {
-                sh "${scannerHome}/bin/sonar-scanner"
+                sh "$SCANNER_HOME/bin/sonar-scanner"
               }
             }
           }

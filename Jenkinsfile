@@ -19,6 +19,6 @@ node {
   }   
    
   stage('Build') {
-    echo "Build if SonarQube is a successs"
+    
   }
 }
